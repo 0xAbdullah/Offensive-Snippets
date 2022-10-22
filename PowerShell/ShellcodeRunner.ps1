@@ -1,5 +1,6 @@
 # I tested this PoC on fully patched Windows 11 - 10/23/2022-.
 # Made for Havoc C2.
+# https://github.com/0xAbdullah/Offensive-Snippets/blob/main/PowerShell/PoC_ShellcodeRunner.gif
 $PInvoke = @"
 using System;
 using System.Runtime.InteropServices;
