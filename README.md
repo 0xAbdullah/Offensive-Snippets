@@ -1,5 +1,5 @@
 # Offensive-Snippets
-A repository with my code snippets for research/education purposes.
+A repository with my/stolen code snippets for research/education purposes :D.
 
 
 
