@@ -72,8 +72,8 @@ namespace OffensiveSnippets
 
         public static void Main(string[] args)
         {
-            int checkAMSI = PatchETW();
-            if (checkAMSI == 0)
+            int checkETW = PatchETW();
+            if (checkETW == 0)
             {
                 Console.WriteLine("[+] ETW pathced.");
             }
