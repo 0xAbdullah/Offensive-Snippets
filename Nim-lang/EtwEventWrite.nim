@@ -1,4 +1,6 @@
-# nim c -d:release --app=console --cpu=amd64 EtwEventWrite.nim
+#[
+Nim-lang code snippet to pathing Event Tracing for Windows (ETW) via WinApi without using the Winim library.
+]#
 type
     LPCSTR* = cstring
     DWORD* = int
