@@ -5,7 +5,6 @@ A repository with my/stolen code snippets for research/education purposes :D.
 
 |Snippet Name| Description |
 |--|--|
-| [Patching EtwEventWrite via Nim-lang](https://github.com/0xAbdullah/Offensive-Snippets/blob/main/Nim-lang/EtwEventWrite.nim) | Nim-lang code snippet to pathing Event Tracing for Windows (ETW) via WinApi without using the Winim library.  |
 | [LNK-Generator](https://github.com/0xAbdullah/Offensive-Snippets/blob/main/PowerShell/LNK-Generator.ps1) | Powershell script to generate an obfuscated malicious LNK file as a dropper.  |
 | [Patching EtwEventWrite via PInvoke](https://github.com/0xAbdullah/Offensive-Snippets/blob/main/C%23/PInvoke/EtwEventWrite.cs) | C# code snippet to pathing Event Tracing for Windows (ETW) via PInvoke.  | 
 | [Patching EtwEventWrite via DInvoke](https://github.com/0xAbdullah/Offensive-Snippets/blob/main/C%23/DInvoke/EtwEventWrite.cs) | C# code snippet to pathing Event Tracing for Windows (ETW) via DInvoke.  | 
