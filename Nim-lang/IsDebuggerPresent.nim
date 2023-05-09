@@ -8,6 +8,7 @@ type
 proc MessageBox*(hWnd: HWND, lpText: LPCSTR, lpCaption: LPCSTR, uType: UINT): int32 
   {.discardable, stdcall, dynlib: "user32", importc: "MessageBoxA".}
 
+# https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-isdebuggerpresent
 proc IsDebuggerPresent*(): bool 
   {.discardable, stdcall, dynlib: "kernel32", importc: "IsDebuggerPresent".}
 
