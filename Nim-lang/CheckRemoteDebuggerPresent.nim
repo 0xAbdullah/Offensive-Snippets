@@ -14,7 +14,6 @@ proc CheckRemoteDebuggerPresent*(hProcess: HANDLE,  pbDebuggerPresent: var BOOL)
 
 proc GetCurrentProcess*(): HANDLE {.stdcall, dynlib: "kernel32", importc: "GetCurrentProcess".}
 
-
 var hProcess: HANDLE = GetCurrentProcess()
 const FALSE* = 0
 var debuggerPresent: BOOL = FALSE
