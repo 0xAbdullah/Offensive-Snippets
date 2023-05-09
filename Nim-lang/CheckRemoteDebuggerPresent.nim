@@ -9,9 +9,11 @@ type
 proc MessageBox*(hWnd: HWND, lpText: LPCSTR, lpCaption: LPCSTR, uType: UINT): int32 
   {.discardable, stdcall, dynlib: "user32", importc: "MessageBoxA".}
 
+#https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-checkremotedebuggerpresent
 proc CheckRemoteDebuggerPresent*(hProcess: HANDLE,  pbDebuggerPresent: var BOOL): BOOL
   {.stdcall, dynlib: "kernel32", importc: "CheckRemoteDebuggerPresent".}
 
+# https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess
 proc GetCurrentProcess*(): HANDLE {.stdcall, dynlib: "kernel32", importc: "GetCurrentProcess".}
 
 var hProcess: HANDLE = GetCurrentProcess()
