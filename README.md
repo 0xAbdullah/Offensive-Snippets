@@ -1,5 +1,5 @@
 # Offensive-Snippets
-This repository contains a collection of code snippets for research and educational purposes.
+This repository contains a collection of code snippets for research and educational purposes. The snippets are written in C#, PowerShell, and Nim. 
 
 |Snippet Name| Description |
 |--|--|
