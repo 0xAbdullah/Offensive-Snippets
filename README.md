@@ -10,4 +10,4 @@ This repository contains a collection of code snippets for research and educatio
 | [Bypass ATP and dump LSASS](https://github.com/0xAbdullah/Offensive-Snippets/blob/main/PowerShell/Bypass_Windows_Defender_ATP_To_Dump_LSASS_PoC.ps1) | Powershell code to bypass Advanced Threat Protection (ATP) and dump the LSASS process. For more details check this post [Bypass Windows Defender ATP](https://blog.0x4.xyz/bypassing-windows-protection-mechanisms/bypass-windows-defender-atp). | 
 
 # Disclaimer
-The "Offensive Snippets" Repository is intended for authorized testing and educational purposes only. Use for any other purposes is strictly prohibited. 
+The "Offensive Snippets" repository is intended for authorized testing and educational purposes only. Use for any other purposes is strictly prohibited. 
